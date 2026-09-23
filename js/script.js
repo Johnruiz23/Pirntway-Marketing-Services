@@ -57,13 +57,19 @@ if (inquiryForm) {
         const name = document.querySelector('#inquiry-name').value.trim();
         const email = document.querySelector('#inquiry-email').value.trim();
         const company = document.querySelector('#inquiry-company').value.trim() || 'Not provided';
-        const message = document.querySelector('#inquiry-message').value.trim();
+const message = document.querySelector('#inquiry-message').value.trim();
         const status = document.querySelector('#form-status');
         const subject = encodeURIComponent(`Website inquiry from ${name}`);
         const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nInquiry:\n${message}`);
 
-        status.textContent = 'Opening your email app with your inquiry filled in.';
-        window.location.href = `mailto:sales1@printway.net,jovel@printway.net?subject=${subject}&body=${body}`;
+        status.innerHTML = 'Opening your email app with your inquiry filled in.<br>If it does not open, please email us directly at <a href="mailto:sales1@printway.net">sales1@printway.net</a> or <a href="mailto:jovel@printway.net">jovel@printway.net</a>.';
+
+        const mailLink = document.createElement('a');
+        mailLink.href = `mailto:sales1@printway.net,jovel@printway.net?subject=${subject}&body=${body}`;
+        mailLink.style.display = 'none';
+        document.body.appendChild(mailLink);
+        mailLink.click();
+        mailLink.remove();
     });
 }
 
